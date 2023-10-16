@@ -9,6 +9,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+/**
+ * Use case Hilt module for the domain business
+ */
 @Module
 @InstallIn(ViewModelComponent::class)
 abstract class  UseCaseModule {

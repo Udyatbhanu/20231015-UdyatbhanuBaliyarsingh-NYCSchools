@@ -42,9 +42,6 @@ mockk-android = { group = "io.mockk", name ="mockk-android", version.ref = "mock
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
-#kotlin-kapt = { id = "kotlin-kapt", version.ref = "org-jetbrains-kotlin-android" }
-#hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
-
 
 [bundles]
 

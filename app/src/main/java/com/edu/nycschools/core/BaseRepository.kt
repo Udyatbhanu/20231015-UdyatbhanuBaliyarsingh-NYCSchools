@@ -8,8 +8,6 @@ import kotlinx.coroutines.withContext
 import java.io.IOException
 
 abstract class BaseRepository {
-
-
     @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
     suspend fun <T> invoke(apiCall: suspend () -> T): ResultWrapper<T> {
         return withContext(Dispatchers.IO) {

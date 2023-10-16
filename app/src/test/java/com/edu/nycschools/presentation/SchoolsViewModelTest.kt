@@ -4,16 +4,21 @@ import com.edu.nycschools.MainDispatcherRule
 import com.edu.nycschools.core.ResultWrapper
 import com.edu.nycschools.data.dto.schools.School
 import com.edu.nycschools.domain.schools.GetSchoolsUseCase
+import com.edu.nycschools.presentation.schools.SchoolsFragmentState
 import com.edu.nycschools.presentation.schools.SchoolsViewModel
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit4.MockKRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 
 class SchoolsViewModelTest {
 
@@ -25,7 +30,7 @@ class SchoolsViewModelTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     @MockK
-    lateinit var getSchoolsUseCase: GetSchoolsUseCase
+    lateinit var getSchoolsUseCaseMock: GetSchoolsUseCase
 
     private lateinit var schoolsViewModel: SchoolsViewModel
 
@@ -45,15 +50,40 @@ class SchoolsViewModelTest {
 
     @Before
     fun setUp() {
-        coEvery { getSchoolsUseCase.getSchools() } returns ResultWrapper.Success(
+        coEvery { getSchoolsUseCaseMock.getSchools() } returns ResultWrapper.Success(
             fakeSchools
         )
-        schoolsViewModel = SchoolsViewModel(getSchoolsUseCase = getSchoolsUseCase)
+        schoolsViewModel = SchoolsViewModel(getSchoolsUseCase = getSchoolsUseCaseMock)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
         Dispatchers.resetMain()
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `test get schools call is made on launch`() = runTest {
+        //verify no calls happened
+        coVerify(exactly = 1) { getSchoolsUseCaseMock.getSchools() }
+
+        //assertions
+        Assert.assertNotNull(schoolsViewModel.state)
+    }
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `test get schools call`() = runTest {
+        //verify called once
+        schoolsViewModel.fetchSchools()
+        coVerify(exactly = 2) { getSchoolsUseCaseMock.getSchools() }
+
+        //assertions
+        Assert.assertNotNull(schoolsViewModel.state)
+        Assert.assertEquals(
+            schoolsViewModel.state.value,
+            SchoolsFragmentState.HideSpinner
+        )
     }
 }

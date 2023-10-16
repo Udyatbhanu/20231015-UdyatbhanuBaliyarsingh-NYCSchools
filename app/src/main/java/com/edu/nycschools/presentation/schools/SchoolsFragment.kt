@@ -21,7 +21,9 @@ import com.edu.nycschools.presentation.showError
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
-
+/**
+ * Sealed class to handle state of the fragment.
+ */
 sealed class SchoolsFragmentState {
     data class Success(val schools: Schools) : SchoolsFragmentState()
     data object Error : SchoolsFragmentState()
@@ -76,7 +78,6 @@ class SchoolsFragment : Fragment() {
                     is SchoolsFragmentState.Idle -> showSpinner()
                     is SchoolsFragmentState.HideSpinner -> hideSpinner()
                     is SchoolsFragmentState.Error -> showError( binding.root)
-                    else -> {}
                 }
             }
         }

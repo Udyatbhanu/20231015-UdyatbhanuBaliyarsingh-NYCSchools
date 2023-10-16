@@ -6,7 +6,9 @@ data class ErrorResponse(
     val causes: Map<String, String> = emptyMap() //this is for errors on specific field on a form
 )
 
-
+/**
+ * Wrapper class to handle api responses.
+ */
 sealed class ResultWrapper<out T> {
     data class Success<out T>(val value: T) : ResultWrapper<T>()
 
