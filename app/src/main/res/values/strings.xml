@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">NYC Schools</string>
+    <string name="sat_scores_title">Sat Scores</string>
+    <string name="app_title">NYC Schools</string>
+
+
+    <string name="sat_scores_number">Number Of Sat Takers</string>
+    <string name="sat_scores_reading">Reading Average Score</string>
+    <string name="sat_scores_writing">Writing Average Score</string>
+    <string name="sat_scores_math">Math Average Score</string>
+
+    <string name="generic_error_title">Oops!</string>
+    <string name="generic_error">There was an error processing your request!</string>
+    <string name="generic_error_dismiss">Close</string>
+</resources>
